@@ -57,33 +57,17 @@ class post_recommendation(APIView):
         print("msg_body: {}".format(msg_body))
         print(type(msg_body))
         csv_file = csv.reader(open('input/recommendations.csv', "rt", encoding= "utf8"), delimiter=",")
-        #if there is only one itemId posted to the system, just return back one itemId
-        if (isinstance(msg_body["itemId"], int)==True):
-            itemId = msg_body["itemId"]
-            count=0
-            recommend_itemId=""
-            for row in csv_file:
-                if itemId == row[1]:
-                    recommend_itemId=row[2]
-                else:
-                    count=count+1
-            result = {"result":"success", "recommend_itemId": recommend_itemId}
-            response = Response(result, status=status.HTTP_200_OK)
-            return response
-        #if there are more than one itemId posted to the system, return back 2 most confidence itemId
-        else:
-            itemId = msg_body["itemId"]
-            recommend_itemId = []
-            count=0
-            for row in csv_file:
-                for i in itemId:
-                    if i == row[1]:
-                        recommend_itemId.append(row[2]) 
-                    else:
-                        count=count+1
-            result = {"result":"success", "recommend_itemId": recommend_itemId}
-            response = Response(result, status=status.HTTP_200_OK)
-            return response
+        itemId_get = msg_body["itemId"]
+        recommend_itemId = []
+        recommend_lift = []
+        for row in csv_file:
+            for i in itemId_get:
+                if i == row[1]:
+                    recommend_itemId.append(row[2])
+                    recommend_lift.append(row[11]) 
+        result = {"result":"success", "recommend_itemId": recommend_itemId, "recommend_lift": recommend_lift}
+        response = Response(result, status=status.HTTP_200_OK)
+        return response
 
 
 
