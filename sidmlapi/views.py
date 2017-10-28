@@ -62,14 +62,23 @@ class post_recommendation(APIView):
         recommend_lift = []
         for row in csv_file:
             for i in itemId_get:
-                if i == row[1]:
+                if(i == row[1]):
                     recommend_itemId.append(row[2])
+                    recommend_lift.append(row[11]) 
+                elif(i == row[2]):
+                    recommend_itemId.append(row[1])
                     recommend_lift.append(row[11]) 
         #got all recommend_itemId here
         #check if these recommend_itemId belong to group/aiesle or not
-        if(msg_body["group"]=="M35-44" or msg_body["group"]=="M18-24" or msg_body["group"]=="M25-34" or msg_body["group"]=="F35-44"):
+        if(msg_body["group"]=="M35-44" or msg_body["group"]=="F35-44"):
             aiesleId="24"
             interest="fresh fruits"
+        elif(msg_body["group"]=="M18-24"):
+            aiesleId="115"
+            interest="water seltzer sparkling water"
+        elif(msg_body["group"]=="M25-34"):
+            aiesleId="84"
+            interest="milk"
         elif(msg_body["group"]=="M44+" or msg_body["group"]=="F44+"):
             aiesleId="83"
             interest="fresh vegetables"
