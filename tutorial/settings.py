@@ -25,7 +25,7 @@ SECRET_KEY = 'y^qkxtw6$_bw_31(zeqyx36k4_a6*jaleia#u69_whnt6pclel'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['10.201.16.59','localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['10.201.16.59','localhost', '127.0.0.1', '35.202.6.239']
 
 
 # Application definition
@@ -41,12 +41,12 @@ INSTALLED_APPS = [
     'sidmlapi'
 ]
 
-REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAdminUser',
-    ],
-    'PAGE_SIZE': 10
-}
+# REST_FRAMEWORK = {
+#    'DEFAULT_PERMISSION_CLASSES': [
+#        'rest_framework.permissions.IsAdminUser',
+#    ],
+#    'PAGE_SIZE': 10
+# }
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
