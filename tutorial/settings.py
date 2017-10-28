@@ -27,7 +27,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['10.201.16.59','localhost', '127.0.0.1', '35.202.6.239']
 
-
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_CREDENTIALS = False
 # Application definition
 
 INSTALLED_APPS = [
@@ -38,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'sidmlapi'
+    'sidmlapi',
+	'corsheaders'
 ]
 
 # REST_FRAMEWORK = {
@@ -56,6 +58,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware'
 ]
 
 ROOT_URLCONF = 'tutorial.urls'
