@@ -65,9 +65,40 @@ class post_recommendation(APIView):
                 if i == row[1]:
                     recommend_itemId.append(row[2])
                     recommend_lift.append(row[11]) 
-        result = {"result":"success", "recommend_itemId": recommend_itemId, "recommend_lift": recommend_lift}
+        #got all recommend_itemId here
+        #check if these recommend_itemId belong to group/aiesle or not
+        if(msg_body["group"]=="M35-44" or msg_body["group"]=="M18-24" or msg_body["group"]=="M25-34" or msg_body["group"]=="F35-44"):
+            aiesleId="24"
+            interest="fresh fruits"
+        elif(msg_body["group"]=="M44+" or msg_body["group"]=="F44+"):
+            aiesleId="83"
+            interest="fresh vegetables"
+        elif(msg_body["group"]=="F18-24"):
+            aiesleId="120"
+            interest="yogurt"
+        elif(msg_body["group"]=="F25-34"):
+            aiesleId="92"
+            interest="baby food formula"
+        else:
+            aiesleId="24"
+            interest="fresh fruits"
+        
+        #check if any of the recommend_itemId is in aieselID or not
+        recommend_itemId_segment = []
+        csv_file2 = csv.reader(open('input/products.csv', "rt", encoding= "utf8"), delimiter=",")
+        for row in csv_file2:
+            for r in recommend_itemId:
+                if (r == row[0] and aiesleId == row[2]):
+                    recommend_itemId_segment.append(r)
+        # if(recommend_itemId_segment==[]):
+        result = {"result":"success", "recommend_itemId": recommend_itemId, "recommend_lift": recommend_lift, "interest":interest, "recommend_itemId_segment":recommend_itemId_segment}
         response = Response(result, status=status.HTTP_200_OK)
         return response
+        # else:
+        #     result = {"result":"success", "recommend_itemId": recommend_itemId_segment, "recommend_lift": recommend_lift, "interest":interest}
+        #     response = Response(result, status=status.HTTP_200_OK)
+        #     return response
+
 
 
 
